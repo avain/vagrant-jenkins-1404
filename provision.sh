@@ -18,6 +18,7 @@ fi
 # we try one of Level3's DNS servers as well. If neither IP replies to a ping,
 # then we'll skip a few things further in provisioning rather than creating a
 # bunch of errors.
+
 ping_result="$(ping -c 2 8.8.4.4 2>&1)"
 if [[ $ping_result != *bytes?from* ]]; then
 	ping_result="$(ping -c 2 4.2.2.2 2>&1)"
@@ -46,13 +47,19 @@ apt_package_install_list=(
 			# Jenkins
 			jenkins
 
+			# Ruby
+			ruby2.1
+
 	)
 
 if [[ $ping_result == *bytes?from* ]]; then
 
-	#Jenkins related
+	#Jenkins repo
 	wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 	sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+	# Ruby repo
+	add-apt-repository ppa:brightbox/ruby-ng
 
 	# Update the repos
 	echo "Running apt-get update..."
@@ -78,6 +85,9 @@ ln -s /usr/local/nodejs/bin/npm /usr/local/bin/npm
 
 echo "Installing Grunt CLI"
 npm install -g grunt-cli &>/dev/null
+
+# Capistrano install
+gem install capistrano
 
 # RESTART SERVICES
 #
