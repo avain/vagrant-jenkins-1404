@@ -38,7 +38,6 @@ apt_package_install_list=(
 			curl
 			make
 			vim
-
 			g++
 
 			# Java
@@ -49,6 +48,9 @@ apt_package_install_list=(
 
 			# Ruby
 			ruby2.1
+
+			# fabric
+			fabric
 
 	)
 

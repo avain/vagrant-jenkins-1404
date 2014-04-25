@@ -22,6 +22,7 @@ Included Packages
 * node 0.10.26
 * ruby 2.1.x
 * capistrano latest
+* fabric
 * git-core
 * zip
 * unzip
